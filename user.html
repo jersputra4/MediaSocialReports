@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SocialReport — User</title><link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand compact"><div class="brand-mark">SR</div><div><strong>SocialReport</strong><small>User Portal</small></div></div>
+  <nav>
+    <a class="active" href="#dashboard">Dashboard Report</a>
+    <a href="#create">Buat Report</a>
+    <a href="#settings">Setting</a>
+  </nav>
+  <button class="logout" onclick="logout()">Keluar</button>
+</aside>
+
+<main class="content">
+<header class="topbar"><div><span class="eyebrow">USER PORTAL</span><h1 id="pageTitle">Dashboard Report</h1></div><div class="profile-chip">Jery Saputra · User</div></header>
+
+<section id="dashboard" class="page-section">
+  <div class="stats">
+    <div class="stat"><span>Total Report</span><b>8</b></div>
+    <div class="stat"><span>Menunggu Pembayaran</span><b>1</b></div>
+    <div class="stat"><span>Dalam Review</span><b>3</b></div>
+    <div class="stat"><span>Selesai</span><b>4</b></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><div><h2>Report Saya</h2><p class="muted">Hanya report dengan user_id Anda yang ditampilkan.</p></div>
+      <input class="search" placeholder="Cari kode report..." oninput="filterRows(this,'reportTable')">
+    </div>
+    <table id="reportTable"><thead><tr><th>Kode Report</th><th>Platform</th><th>Action</th><th>Status</th><th>Tanggal</th><th>Aksi</th></tr></thead>
+    <tbody>
+      <tr><td>RPT-2026-00081</td><td>Instagram</td><td>Report Postingan</td><td><span class="badge review">Dalam Review</span></td><td>19 Sep 2026</td><td><button class="btn small" onclick="showDetail('RPT-2026-00081')">Detail</button></td></tr>
+      <tr><td>RPT-2026-00074</td><td>TikTok</td><td>Report Akun</td><td><span class="badge paid">Paid</span></td><td>18 Sep 2026</td><td><button class="btn small">PDF</button></td></tr>
+      <tr><td>RPT-2026-00061</td><td>YouTube</td><td>Report Postingan</td><td><span class="badge done">Completed</span></td><td>15 Sep 2026</td><td><button class="btn small">PDF</button></td></tr>
+    </tbody></table>
+  </div>
+  <div class="panel search-panel">
+    <h2>Cari Report Berdasarkan Kode</h2>
+    <div class="inline"><input id="reportCodeSearch" placeholder="Contoh: RPT-2026-00081"><button class="btn primary" onclick="searchReport()">Cari</button></div>
+    <div id="searchResult" class="result-box hidden"></div>
+  </div>
+</section>
+
+<section id="create" class="page-section hidden">
+  <div class="stepper"><span class="active">1 Target</span><span>2 Action & Paket</span><span>3 Policy & UU ITE</span><span>4 Evidence</span><span>5 Review & Payment</span></div>
+  <div class="panel">
+    <h2>1. Target Konten / Akun</h2>
+    <p class="muted">Masukkan URL postingan atau akun yang ingin dilaporkan.</p>
+    <label>URL Target</label><input id="targetUrl" placeholder="https://www.instagram.com/...">
+    <button class="btn primary" onclick="detectPlatform()">Deteksi Platform</button>
+    <div id="platformResult" class="preview-card hidden">
+      <div class="platform-icon" id="platformIcon">IG</div>
+      <div><b id="platformName">Instagram</b><p id="targetPreview">Preview target akan ditampilkan di sini.</p></div>
+      <span class="badge done">Terdeteksi</span>
+    </div>
+    <label class="check"><input type="checkbox"> Saya mengonfirmasi bahwa target di atas adalah konten/akun yang dimaksud.</label>
+  </div>
+
+  <div class="panel">
+    <h2>2. Action & Paket</h2>
+    <div class="grid-2">
+      <div><label>Jenis Action</label><select id="action"><option>Report Postingan</option><option>Report Akun</option></select></div>
+      <div><label>Paket Report</label><select id="package" onchange="calculatePrice()"><option value="300">300</option><option value="500">500</option><option value="1000">1.000</option><option value="1500">1.500</option></select></div>
+    </div>
+    <div class="price-box">Total pembayaran <strong id="price">Rp300.000</strong><small>Rp1.000 / unit report</small></div>
+  </div>
+
+  <div class="panel">
+    <h2>3. Policy Platform</h2>
+    <p class="muted">Daftar policy mengikuti platform yang terdeteksi.</p>
+    <div class="policy-grid">
+      <label class="choice"><input type="checkbox"> Harassment / Bullying</label>
+      <label class="choice"><input type="checkbox"> Hate Speech</label>
+      <label class="choice"><input type="checkbox"> Impersonation</label>
+      <label class="choice"><input type="checkbox"> Spam / Scam</label>
+      <label class="choice"><input type="checkbox"> Violence / Dangerous Content</label>
+      <label class="choice"><input type="checkbox"> Nudity / Sexual Content</label>
+      <label class="choice"><input type="checkbox"> Intellectual Property</label>
+      <label class="choice"><input type="checkbox"> Others</label>
+    </div>
+    <label>Others — jelaskan jika diperlukan</label><textarea placeholder="Tulis alasan/policy lainnya..."></textarea>
+  </div>
+
+  <div class="panel">
+    <h2>4. Dasar Hukum UU ITE</h2>
+    <div class="grid-3">
+      <div><label>UU</label><select><option>UU ITE</option></select></div>
+      <div><label>Versi</label><select><option>Versi aktif</option></select></div>
+      <div><label>Pasal</label><select><option>Pasal 27</option><option>Pasal 28</option><option>Pasal 29</option><option>Pasal lainnya</option></select></div>
+    </div>
+    <label>Ayat</label><select><option>Ayat (1)</option><option>Ayat (2)</option><option>Ayat (3)</option><option>Ayat lainnya</option></select>
+    <div class="legal-read"><b>Pasal yang dipilih</b><p>Isi pasal/ayat akan ditampilkan dari master database agar user dapat membaca ketentuan yang dipilih.</p></div>
+    <label class="check"><input type="checkbox"> Others / dasar hukum lain</label>
+    <textarea placeholder="Tulis dasar hukum lain jika diperlukan..."></textarea>
+  </div>
+
+  <div class="panel">
+    <h2>5. Evidence</h2>
+    <p class="muted">Upload screenshot/gambar sebagai barang bukti. File tidak diproses OCR.</p>
+    <div class="upload" onclick="document.getElementById('evidence').click()">＋ <b>Pilih gambar evidence</b><small>PNG/JPG/JPEG · preview tersedia</small></div>
+    <input id="evidence" type="file" accept="image/png,image/jpeg" multiple hidden onchange="previewEvidence(event)">
+    <div id="evidencePreview" class="evidence-grid"></div>
+  </div>
+
+  <div class="panel">
+    <h2>6. Review & Payment</h2>
+    <div class="summary"><div><span>Platform</span><b id="summaryPlatform">Belum terdeteksi</b></div><div><span>Action</span><b id="summaryAction">Report Postingan</b></div><div><span>Paket</span><b id="summaryPackage">300</b></div><div><span>Total</span><b id="summaryPrice">Rp300.000</b></div></div>
+    <label>Metode Pembayaran</label><select><option>Mandiri</option><option>Jago</option><option>BRI</option><option>BNI</option><option>GoPay</option><option>DANA</option><option>ShopeePay</option></select>
+    <button class="btn primary" onclick="submitReport()">Buat Report & Lanjut Payment</button>
+  </div>
+</section>
+
+<section id="settings" class="page-section hidden">
+  <div class="panel narrow"><h2>Setting</h2><p class="muted">Email tidak dapat diubah.</p>
+    <label>Nama</label><input value="Jery Saputra"><label>Email</label><input value="user@example.com" disabled><label>No. HP</label><input value="08xxxxxxxxxx"><label>Password Baru</label><input type="password" placeholder="Kosongkan jika tidak diubah"><button class="btn primary">Simpan Perubahan</button>
+  </div>
+</section>
+</main></div>
+<script src="js/app.js"></script>
+</body></html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SocialReport — Admin</title><link rel="stylesheet" href="css/style.css"></head>
+<body>
+<div class="app">
+<aside class="sidebar admin-side">
+<div class="brand compact"><div class="brand-mark">SR</div><div><strong>SocialReport</strong><small>Admin Console</small></div></div>
+<nav>
+<a class="active" href="#overview">Dashboard</a><a href="#reports">Reports</a><a href="#payments">Payment</a><a href="#users">Users</a><a href="#policies">Platform Policy</a><a href="#legal">UU ITE</a><a href="#audit">Audit Log</a><a href="#admin-settings">Setting</a>
+</nav><button class="logout" onclick="logout()">Keluar</button></aside>
+<main class="content">
+<header class="topbar"><div><span class="eyebrow">ADMIN CONSOLE</span><h1>System Overview</h1></div><div class="profile-chip">Administrator</div></header>
+<section id="overview" class="page-section">
+<div class="stats"><div class="stat"><span>Total Reports</span><b>1,284</b></div><div class="stat"><span>Pending Review</span><b>42</b></div><div class="stat"><span>Payment Pending</span><b>17</b></div><div class="stat"><span>Notification Errors</span><b>2</b></div></div>
+<div class="grid-2"><div class="panel"><h2>Workflow Status</h2><div class="flow"><span>Report Created</span><i>→</i><span>Payment Verified</span><i>→</i><span>Review</span><i>→</i><span>Approval</span><i>→</i><span>Submitted</span></div></div><div class="panel"><h2>n8n Automation</h2><p>Last execution: <b>1 minute ago</b></p><div class="automation"><span class="dot"></span> Operational <span class="muted">· 126 jobs today</span></div></div></div>
+</section>
+
+<section id="reports" class="page-section"><div class="panel"><div class="panel-head"><div><h2>Semua Report</h2><p class="muted">Admin dapat mengakses seluruh report sesuai permission.</p></div><input class="search" placeholder="Search report/user..." oninput="filterRows(this,'adminReportTable')"></div>
+<table id="adminReportTable"><thead><tr><th>Report</th><th>User</th><th>Platform</th><th>Action</th><th>Payment</th><th>Status</th><th>Aksi</th></tr></thead><tbody>
+<tr><td>RPT-2026-00081</td><td>Jery Saputra</td><td>Instagram</td><td>Postingan</td><td><span class="badge paid">Verified</span></td><td><span class="badge review">Review</span></td><td><button class="btn small" onclick="openCase('RPT-2026-00081')">Buka Case</button></td></tr>
+<tr><td>RPT-2026-00080</td><td>Andi</td><td>TikTok</td><td>Akun</td><td><span class="badge paid">Verified</span></td><td><span class="badge done">Approved</span></td><td><button class="btn small">Detail</button></td></tr>
+</tbody></table></div></section>
+
+<section id="payments" class="page-section"><div class="panel"><h2>Payment</h2><table><thead><tr><th>Kode Payment</th><th>Report</th><th>Method</th><th>Amount</th><th>Status</th><th>PDF</th></tr></thead><tbody><tr><td>PAY-826173</td><td>RPT-2026-00081</td><td>Mandiri</td><td>Rp300.000</td><td><span class="badge paid">Verified</span></td><td><button class="btn small">Download PDF</button></td></tr><tr><td>PAY-826102</td><td>RPT-2026-00080</td><td>ShopeePay</td><td>Rp500.000</td><td><span class="badge pending">Pending</span></td><td><button class="btn small">Download PDF</button></td></tr></tbody></table></div></section>
+
+<section id="users" class="page-section"><div class="panel"><div class="panel-head"><h2>User Management</h2><button class="btn primary">+ Tambah User</button></div><table><thead><tr><th>User ID</th><th>Nama</th><th>Email</th><th>Role</th><th>Status</th><th>Aksi</th></tr></thead><tbody><tr><td>USR-001</td><td>Jery Saputra</td><td>user@example.com</td><td>User</td><td>Active</td><td><button class="btn small">Edit</button></td></tr><tr><td>ADM-001</td><td>Administrator</td><td>admin@example.com</td><td>Admin</td><td>Active</td><td><button class="btn small">Edit</button></td></tr></tbody></table></div></section>
+
+<section id="policies" class="page-section"><div class="panel"><div class="panel-head"><div><h2>Platform Policy</h2><p class="muted">CRUD + versioning policy. Policy di bawah hanya contoh UI.</p></div><button class="btn primary">+ Policy Baru</button></div><div class="tabs"><button class="tab active">Instagram</button><button class="tab">Facebook</button><button class="tab">TikTok</button><button class="tab">X</button><button class="tab">YouTube</button></div><table><thead><tr><th>Policy</th><th>Version</th><th>Status</th><th>Updated</th><th>Aksi</th></tr></thead><tbody><tr><td>Harassment / Bullying</td><td>2026.1</td><td>Active</td><td>19 Sep 2026</td><td><button class="btn small">Edit</button></td></tr><tr><td>Hate Speech</td><td>2026.1</td><td>Active</td><td>19 Sep 2026</td><td><button class="btn small">Edit</button></td></tr></tbody></table></div></section>
+
+<section id="legal" class="page-section"><div class="panel"><div class="panel-head"><div><h2>UU ITE Management</h2><p class="muted">Admin dapat CRUD dan archive. Pasal/ayat hanya untuk dibaca pada review.</p></div><button class="btn primary">+ Tambah Versi</button></div><div class="grid-3"><select><option>UU ITE</option></select><select><option>Versi Aktif</option><option>Arsip</option></select><select><option>Pasal 27</option><option>Pasal 28</option><option>Pasal 29</option></select></div><div class="legal-read large"><h3>Pasal 27 — Ayat (1)</h3><p>Isi pasal/ayat ditampilkan lengkap dari database untuk kebutuhan pembacaan dan review. Pada implementasi final, teks hukum harus bersumber dari sumber hukum yang telah diverifikasi.</p><hr><h3>Riwayat Versi</h3><p>Version 2024 — Active · Amendment metadata tersedia.</p></div></div></section>
+
+<section id="audit" class="page-section"><div class="panel"><h2>Audit Log</h2><table><thead><tr><th>Waktu</th><th>Actor</th><th>Action</th><th>Object</th><th>IP</th></tr></thead><tbody><tr><td>01:12</td><td>admin</td><td>REPORT_APPROVED</td><td>RPT-2026-00080</td><td>internal</td></tr><tr><td>01:10</td><td>user</td><td>CREATE_REPORT</td><td>RPT-2026-00081</td><td>masked</td></tr></tbody></table></div></section>
+
+<section id="admin-settings" class="page-section"><div class="panel narrow"><h2>Setting Admin</h2><label>Nama</label><input value="Administrator"><label>Email</label><input value="admin@example.com" disabled><label>No. HP</label><input value="08xxxxxxxxxx"><label>Password Baru</label><input type="password"><button class="btn primary">Simpan</button></div></section>
+
+<div id="caseModal" class="modal hidden"><div class="modal-box"><button class="close" onclick="closeCase()">×</button><span class="eyebrow">CASE DETAIL</span><h2 id="caseTitle">RPT-2026-00081</h2><div class="case-grid"><div><b>Target</b><p>https://instagram.com/example</p></div><div><b>User</b><p>Jery Saputra</p></div><div><b>Policy</b><p>Hate Speech</p></div><div><b>UU ITE</b><p>Pasal 28 ayat (2)</p></div></div><div class="panel inner"><h3>Evidence</h3><div class="evidence-grid"><div class="evidence-thumb">screenshot-01.jpg</div><div class="evidence-thumb">screenshot-02.jpg</div></div></div><div class="panel inner"><h3>UU ITE — Read Only</h3><p>Pasal dan ayat lengkap ditampilkan untuk dibaca. Tidak dapat dipilih/diubah dari panel review ini.</p></div><div class="modal-actions"><button class="btn">Reject</button><button class="btn primary">Approve</button></div></div></div>
+</main></div>
+<script src="js/app.js"></script></body></html>
